@@ -37,14 +37,30 @@ class ProLang
         $this->comment = $comment;
     }
 
+    public function getMembers()
+    {
+        $array = array();
 
-    public function callComp($type){
+        array_push($array, $this->id);
+        array_push($array, $this->name);
+        array_push($array, $this->writer);
+        array_push($array, $this->developer);
+        array_push($array, $this->extention);
+        array_push($array, $this->like);
+        array_push($array, $this->comment);
+
+        return $array;
+    }
+
+    public function callComp($type)
+    {
         return $this->$type();
     }
 
-    public function toText(){
+    public function toText()
+    {
         $deli = '|';
-        $text = $this->id.$deli.$this->name.$deli.$this->writer.$deli.$this->developer.$deli.$this->extention.$deli.$this->like.$deli.$this->comment;
+        $text = $this->id . $deli . $this->name . $deli . $this->writer . $deli . $this->developer . $deli . $this->extention . $deli . $this->like . $deli . $this->comment;
         return $text;
     }
 
