@@ -123,8 +123,6 @@ class Database
             return strcmp($proLang1->callComp($type),$proLang2->callComp($type));
         });
 
-        var_dump($pro_lang_array);
-
         return $pro_lang_array;
     }
 }
