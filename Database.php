@@ -52,8 +52,6 @@ class Database
             }
         }
 
-        var_dump($pro_lang_array);
-
         fclose($file);
         return $pro_lang_array;
     }
@@ -61,6 +59,7 @@ class Database
     public function add(ProLang $proLang)
     {
         $file = fopen($this->filename, 'a+');
+        $proLang->setId($this->getID());
 
         if (!$file) {
             echo "OPEN FILE ERROR";
@@ -104,6 +103,28 @@ class Database
 
     public function update(ProLang $proLang)
     {
-        
+        $pro_lang_array = $this->read();
+
+        for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {
+            if ($pro_lang_array[$i]->getId() == $proLang->getId()) {
+                $pro_lang_array[$i]=$proLang;
+                continue;
+            }
+        }
+
+        $this->addAll($pro_lang_array);
+    }
+
+    public function sort($type){
+        $pro_lang_array = $this->read();
+
+        usort($pro_lang_array,function ($proLang1, $proLang2) use($type){
+            $type = "get".$type;
+            return strcmp($proLang1->callComp($type),$proLang2->callComp($type));
+        });
+
+        var_dump($pro_lang_array);
+
+        return $pro_lang_array;
     }
 }

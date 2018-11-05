@@ -37,6 +37,11 @@ class ProLang
         $this->comment = $comment;
     }
 
+
+    public function callComp($type){
+        return $this->$type();
+    }
+
     public function toText(){
         $deli = '|';
         $text = $this->id.$deli.$this->name.$deli.$this->writer.$deli.$this->developer.$deli.$this->extention.$deli.$this->like.$deli.$this->comment;
