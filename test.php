@@ -1,13 +1,9 @@
 <?php
-//require 'Database.php';
-//require 'ProLang.php';
-//require 'util.php';
+require_once 'Database.php';
+require_once 'ProLang.php';
+require_once 'util.php';
 
-//$database=new Database("pro_lang.txt");
-
-//$database->add(new ProLang(3, "c++", "ぐぇん"))
-
-$text=array();
-$text[]="dddd";
-$text[]="xxxx";
-print_r($text);
+$database=new Database("pro_lang.txt");
+$database->delete('4');
+//$database->read();
+//$database->add(new ProLang(3, "c++", "ぐぇん","12","12","5","12"));

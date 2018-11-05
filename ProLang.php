@@ -38,7 +38,7 @@ class ProLang
     }
 
     public function toText(){
-        $deli = ',,,';
+        $deli = '|';
         $text = $this->id.$deli.$this->name.$deli.$this->writer.$deli.$this->developer.$deli.$this->extention.$deli.$this->like.$deli.$this->comment;
         return $text;
     }
