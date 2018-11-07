@@ -12,7 +12,7 @@ class ProLang
     private $name;
     private $writer;
     private $developer;
-    private $extention;
+    private $extension;
     private $like;
     private $comment;
 
@@ -22,17 +22,17 @@ class ProLang
      * @param $name
      * @param $writer
      * @param $developer
-     * @param $extention
+     * @param $extension
      * @param $like
      * @param $comment
      */
-    public function __construct($id, $name, $writer, $developer, $extention, $like, $comment)
+    public function __construct($id, $name, $writer, $developer, $extension, $like, $comment)
     {
         $this->id = $id;
         $this->name = $name;
         $this->writer = $writer;
         $this->developer = $developer;
-        $this->extention = $extention;
+        $this->extension = $extension;
         $this->like = $like;
         $this->comment = $comment;
     }
@@ -45,7 +45,7 @@ class ProLang
         array_push($array, $this->name);
         array_push($array, $this->writer);
         array_push($array, $this->developer);
-        array_push($array, $this->extention);
+        array_push($array, $this->extension);
         array_push($array, $this->like);
         array_push($array, $this->comment);
 
@@ -64,7 +64,7 @@ class ProLang
     public function toText()
     {
         $deli = '|';
-        $text = $this->id . $deli . $this->name . $deli . $this->writer . $deli . $this->developer . $deli . $this->extention . $deli . $this->like . $deli . $this->comment;
+        $text = $this->id . $deli . $this->name . $deli . $this->writer . $deli . $this->developer . $deli . $this->extension . $deli . $this->like . $deli . $this->comment;
         return $text;
     }
 
@@ -135,17 +135,17 @@ class ProLang
     /**
      * @return mixed
      */
-    public function getExtention()
+    public function getExtension()
     {
-        return $this->extention;
+        return $this->extension;
     }
 
     /**
-     * @param mixed $extention
+     * @param mixed $extension
      */
-    public function setExtention($extention)
+    public function setExtension($extension)
     {
-        $this->extention = $extention;
+        $this->extension = $extension;
     }
 
     /**

@@ -4,28 +4,24 @@ require_once 'Database.php';
 require_once 'ProLang.php';
 
 $database = new Database("pro_lang.txt");
+
+if ((isset($_GET['id']))) {
+    $deleteId = $_GET['id'];
+    $database->delete($deleteId);
+
+
+}
+
 $pro_langs = $database->read();
+$title = "プログラミング言語辞典";
+
 ?>
 
 <!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>The HTML5 Herald</title>
-    <meta name="description" content="The HTML5 Herald">
-    <meta name="author" content="SitePoint">
-    <link rel="stylesheet" href="bulma.min.css">
-</head>
-
+<html lang="ja">
+<?php (require "./components/meta.php"); ?>
 <body>
-
-<header>
-    <div>
-        <nav class="navbar is-link" role="navigation" aria-label="main navigation" style="margin-bottom: 0;border-radius: 0; background-color: #3F51B5">
-        </nav>
-    </div>
-</header>
-
+<?php (require "./components/header.html"); ?>
 <div>
     <section class="hero is-info">
         <div class="hero-body">
@@ -60,13 +56,13 @@ $pro_langs = $database->read();
                 </thead>
                 <?php foreach ($pro_langs as $pro_lang): ?>
                     <tr>
-                        <?php foreach($pro_lang->getMembers() as $member) : ?>
+                        <?php foreach ($pro_lang->getMembers() as $member) : ?>
                             <td>
-                                <?php echo($member) ;?>
+                                <?php echo(es($member)); ?>
                             </td>
                         <?php endforeach; ?>
-                        <?php echo("<td><a href='index.php?id=".$pro_lang->getId()."'>削除</a></td>"); ?>
-                        <?php echo("<td><a href='update.php?id=".$pro_lang->getId()."'>修正</a></td>"); ?>
+                        <?php echo("<td><a href='index.php?id=" . $pro_lang->getId() . "'>削除</a></td>"); ?>
+                        <?php echo("<td><a href='update.php?id=" . $pro_lang->getId() . "'>修正</a></td>"); ?>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -74,11 +70,9 @@ $pro_langs = $database->read();
     </main>
     <!-- Search -->
 
-    <!--/ Footer -->
-    <my-footer></my-footer>
-    <!-- Footer /-->
+    <?php (require "./components/footer.html"); ?>
 
 </div>
-
+?>
 </body>
 </html>
