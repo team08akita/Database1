@@ -107,7 +107,7 @@ class Database
 
         for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {
             if ($pro_lang_array[$i]->getId() == $proLang->getId()) {
-                $pro_lang_array[$i]=$proLang;
+                $pro_lang_array[$i] = $proLang;
                 continue;
             }
         }
@@ -115,14 +115,33 @@ class Database
         $this->addAll($pro_lang_array);
     }
 
-    public function sort($type){
+    public function sort($type)
+    {
         $pro_lang_array = $this->read();
 
-        usort($pro_lang_array,function ($proLang1, $proLang2) use($type){
-            $type = "get".$type;
-            return strcmp($proLang1->callComp($type),$proLang2->callComp($type));
+        usort($pro_lang_array, function ($proLang1, $proLang2) use ($type) {
+            $type = "get" . $type;
+            return strcmp($proLang1->callComp($type), $proLang2->callComp($type));
         });
 
         return $pro_lang_array;
+    }
+
+    public function search($type, $keyword)
+    {
+        $pro_lang_array = $this->read();
+        $type = "get" . $type;
+        $result = array();
+
+        for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {
+            $text = $pro_lang_array[$i]->callComp($type);
+
+            if (strpos($text, $keyword) === false) continue;
+
+            array_push($result, $pro_lang_array[$i]);
+        }
+
+        var_dump($result);
+        return $result;
     }
 }

@@ -7,4 +7,4 @@ $database=new Database("pro_lang.txt");
 //$database->delete('4');
 //$database->read();
 //$database->update(new ProLang(14, "c++", "tung","12","12","5","12"));
-$database->sort("Comment");
+$database->search("Writer",'tung');

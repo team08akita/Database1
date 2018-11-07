@@ -54,7 +54,11 @@ class ProLang
 
     public function callComp($type)
     {
-        return $this->$type();
+        try {
+            return $this->$type();
+        }catch (Exception $e){
+            echo $e->getMessage();
+        }
     }
 
     public function toText()
