@@ -4,15 +4,60 @@ require_once 'Database.php';
 require_once 'ProLang.php';
 
 $database = new Database("pro_lang.txt");
-$pro_langs=array();
-$searchArray=array();
-$keyword="";
+$pro_langs = array();
+$searchArray = array();
+$keyword = "";
+$ckbNameChecked = 0;
+$ckbWriterChecked = 0;
+$ckbDeveloperChecked = 0;
+$ckbLikeChecked = 0;
+$ckbCommentChecked = 0;
+$ckbExtensionChecked = 0;
 
-if ((isset($_POST['btnSearch']))) {
-    if (isset($_POST['search'])) $searchArray = $_POST['search'];
-    $keyword=$_POST['keyword'];
-    $pro_langs = $database->search($searchArray,$keyword);
+if ((isset($_GET['id']))) {
+    $deleteId = $_GET['id'];
+    $database->delete($deleteId);
 }
+
+if (isset($_GET['btnSearch'])) {
+    if (isset($_GET['ckbName'])) {
+        $ckbNameChecked = 1;
+        array_push($searchArray, "Name");
+    }
+    if (isset($_GET['ckbWriter'])) {
+        $ckbWriterChecked = 1;
+        array_push($searchArray, "Writer");
+    }
+    if (isset($_GET['ckbDeveloper'])) {
+        $ckbDeveloperChecked = 1;
+        array_push($searchArray, "Developer");
+    }
+    if (isset($_GET['ckbLike'])) {
+        $ckbLikeChecked = 1;
+        array_push($searchArray, "Like");
+    }
+    if (isset($_GET['ckbComment'])) {
+        $ckbCommentChecked = 1;
+        array_push($searchArray, "Comment");
+    }
+    if (isset($_GET['ckbExtension'])) {
+        $ckbExtensionChecked = 1;
+        array_push($searchArray, "Extension");
+    }
+
+    $keyword = $_GET['keyword'];
+    $pro_langs = $database->search($searchArray, $keyword);
+} else if ((isset($_GET['btnShowAll']))) {
+    $pro_langs = $database->read();
+}
+
+//if ((isset($_POST['btnSearch']))) {
+//    if (isset($_POST['search'])) $searchArray = $_POST['search'];
+//    $keyword = $_POST['keyword'];
+//    $pro_langs = $database->search($searchArray, $keyword);
+//} else if ((isset($_POST['btnShowAll']))) {
+//    $pro_langs = $database->read();
+//}
 
 
 $title = "プログラミング言語辞典";
@@ -41,50 +86,66 @@ $title = "プログラミング言語辞典";
     <!-- Header /-->
 
     <!--/ Search -->
-    <form method="post">
+    <form method="get">
         <div class="field" style="width: 500px;margin: 20px auto;">
             <div class="control">
-                <input style="width: 400px; height: 50px;" class="input is-medium" type="text" placeholder="キーワード入力" value="<?php echo $keyword?>" name="keyword">
-                <input type="submit" style="height: 50px; width: 90px" class="button is-link" value="検索" name="btnSearch">
+                <input style="width: 500px; height: 50px;" class="input is-medium" type="text" placeholder="キーワード入力"
+                       value="<?php echo $keyword ?>" name="keyword">
+
             </div>
 
             <div class="field" style="margin-top: 10px">
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Name">
+                    <input type="checkbox" name="ckbName"
+                           value="Name" <?php if ($ckbNameChecked === 1) echo 'checked="checked"' ?>>
                     名前
                 </label>
 
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Writer">
+                    <input type="checkbox" name="ckbWriter" value="Writer"
+                           style="margin-left: 20px" <?php if ($ckbWriterChecked === 1) echo 'checked="checked"' ?>>
                     著者
                 </label>
 
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Developer">
+                    <input type="checkbox" name="ckbDeveloper" value="Developer"
+                           style="margin-left: 20px" <?php if ($ckbDeveloperChecked === 1) echo 'checked="checked"' ?>>
                     開発者
                 </label>
 
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Extension">
+                    <input type="checkbox" name="ckbExtension" value="Extension"
+                           style="margin-left: 20px" <?php if ($ckbExtensionChecked === 1) echo 'checked="checked"' ?>>
                     拡張子
                 </label>
 
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Like">
+                    <input type="checkbox" name="ckbLike" value="Like"
+                           style="margin-left: 20px" <?php if ($ckbLikeChecked === 1) echo 'checked="checked"' ?>>
                     好き度
                 </label>
 
                 <label class="checkbox">
-                    <input type="checkbox" name="search[]" value="Comment">
+                    <input type="checkbox" name="ckbComment" value="Comment"
+                           style="margin-left: 20px" <?php if ($ckbCommentChecked === 1) echo 'checked="checked"' ?>>
                     コメント
                 </label>
+
+                <br>
+                <div style="margin-top: 20px">
+                    <input type="submit" style="height: 50px; width: 200px; margin-left: 20px"
+                           class="button is-link" value="検索" name="btnSearch">
+                    <input type="submit" style="height: 50px; width: 200px; margin-left: 50px" class="button is-link"
+                           value="全て表示"
+                           name="btnShowAll">
+                </div>
             </div>
         </div>
     </form>
 
     <main class="columns is-centered" style="margin-top: 20px;">
         <div class="column is-three-quarters">
-            <table class="table">
+            <table class="table" <?php if (count($pro_langs) == 0) echo 'style="visibility: hidden;"' ?>>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -105,7 +166,7 @@ $title = "プログラミング言語辞典";
                                 <?php echo(es($member)); ?>
                             </td>
                         <?php endforeach; ?>
-                        <?php echo("<td><a href='index.php?id=" . $pro_lang->getId() . "'>削除</a></td>"); ?>
+                        <?php echo("<td><a href='search.php?id=" . $pro_lang->getId() ."". "'>削除</a></td>"); ?>
                         <?php echo("<td><a href='update.php?id=" . $pro_lang->getId() . "'>修正</a></td>"); ?>
                     </tr>
                 <?php endforeach; ?>
@@ -117,6 +178,5 @@ $title = "プログラミング言語辞典";
     <?php (require "./components/footer.html"); ?>
 
 </div>
-?>
 </body>
 </html>

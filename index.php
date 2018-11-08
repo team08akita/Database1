@@ -8,8 +8,6 @@ $database = new Database("pro_lang.txt");
 if ((isset($_GET['id']))) {
     $deleteId = $_GET['id'];
     $database->delete($deleteId);
-
-
 }
 
 $pro_langs = $database->read();

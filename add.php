@@ -45,10 +45,8 @@ $title = "プログラミング言語辞典";
     <main class="columns is-centered" style="margin-top: 20px;">
         <form method="POST">
             <div class="field">
-                <label class="label">名前</label>
-                <div class="control">
-                    <input class="input is-info" type="text" placeholder="名前入力" name ="name">
-                </div>
+                <label><b>名前</b></label>
+                    <input class="input is-info" style="width: 200px; margin-left: 30px" type="text" placeholder="名前入力" name ="name">
             </div>
 
             <div class="field">
