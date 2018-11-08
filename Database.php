@@ -127,21 +127,23 @@ class Database
         return $pro_lang_array;
     }
 
-    public function search($type, $keyword)
+    public function search($types, $keyword)
     {
         $pro_lang_array = $this->read();
-        $type = "get" . $type;
+        //$type = "get" . $type;
         $result = array();
 
         for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {
-            $text = $pro_lang_array[$i]->callComp($type);
+            for ($j = 0, $lenType = count($types); $j < $lenType; $j++) {
+                $type="get".$types[$j];
+                $text = $pro_lang_array[$i]->callComp($type);
 
-            if (strpos($text, $keyword) === false) continue;
+                if (strpos($text, $keyword) === false) continue;
 
-            array_push($result, $pro_lang_array[$i]);
+                array_push($result, $pro_lang_array[$i]);
+                break;
+            }
         }
-
-        var_dump($result);
         return $result;
     }
 }

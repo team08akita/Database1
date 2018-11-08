@@ -14,14 +14,8 @@ if (isset($_POST['btnAdd'])){
     $comment=$_POST['comment'];
 
     $database->add(new ProLang(0,$name,$writer,$developer,$extension,$like,$comment));
-    ?>
 
-<div class="notification is-primary">
-    <button class="delete"></button>
-   OK
-</div>
-
-<?php
+    echo "<script>window.alert('ADD OK');</script>";
 }
 $title = "プログラミング言語辞典";
 
@@ -64,20 +58,43 @@ $title = "プログラミング言語辞典";
                 </div>
             </div>
 
+            <div class="field">
+                <label class="label">開発者</label>
+                <div class="control">
+                    <input class="input is-info" type="text" placeholder="開発者入力" name ="developer">
+                </div>
+            </div>
 
-            <span style="width: 100px">開発者:</span>
-            <input type="text" name="developer">
-            <br>
-            <span style="width: 100px">拡張子:</span>
-            <input type="text" name="extension">
-            <br>
-            <span style="width: 100px">好き度:</span>
-            <input type="text" name="like">
-            <br>
-            <span style="width: 100px">コメント:</span>
-            <input type="text" name="comment">
-            <br>
-            <input type="submit" name="btnAdd" value="Add">
+            <div class="field">
+                <label class="label">拡張子</label>
+                <div class="control">
+                    <input class="input is-info" type="text" placeholder="拡張子入力" name ="extension">
+                </div>
+            </div>
+
+            <div class="field" style="width: 200px;">
+                <label class="label">好き度</label>
+                <div class="control">
+                    <div class="select is-info">
+                        <select style="width: 210px;" name="like">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">コメント</label>
+                <div class="control">
+                    <textarea class="textarea is-info" placeholder="コメント入力" name ="comment"></textarea>
+                </div>
+            </div>
+
+            <input class="button is-link" style="width: 200px;" type="submit" name="btnAdd" value="Add">
         </form>
     </main>
     <!-- Search -->
