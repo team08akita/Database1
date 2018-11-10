@@ -14,7 +14,7 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in"></div>
-                <div class="intro-heading text-uppercase"><span>What's favorite?</span></div><a class="btn btn-dark btn-xl text-uppercase js-scroll-trigger" role="button" href="list.php" style="background-color: rgb(92,92,92);color: rgb(255,255,255);">Let's See!</a></div>
+                <div class="intro-heading text-uppercase"><span>What's favorite?</span></div><a class="btn btn-dark btn-xl text-uppercase js-scroll-trigger" role="button" href="list.php" style="background-color: rgb(92,92,92);color: rgb(255,255,255);">Tell us!</a></div>
         </div>
     </header>
     <section id="services">
