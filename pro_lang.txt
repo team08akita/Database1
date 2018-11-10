@@ -1,0 +1,9 @@
+23|c++|gana|323|cpp|3|
+24|sda|2dsfa|fsda|fdsa|3|sfdafsd
+25|sda|2dsfa|fsda|fdsa|3|sfdafsd
+30|c++|ga|32| ppc|3|fdsafsd
+31|c++|ga|32| ppc|3|fdsafsd
+32|c++|ga|32| ppc|3|fdsafsd
+34|34ds|sdfa|23|sdfa|3|sfda
+35|c++|ganariya|300|cpp|5|I love This!
+36|sda|2dsfa|0|fdsa|3|sfdafsd
