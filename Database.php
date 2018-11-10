@@ -130,7 +130,6 @@ class Database
     public function search($types, $keyword)
     {
         $pro_lang_array = $this->read();
-        //$type = "get" . $type;
         $result = array();
 
         for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {

@@ -1,76 +1,43 @@
 <?php
-require_once 'util.php';
-require_once 'Database.php';
-require_once 'ProLang.php';
-
-$database = new Database("pro_lang.txt");
-
-if ((isset($_GET['id']))) {
-    $deleteId = $_GET['id'];
-    $database->delete($deleteId);
-}
-
-$pro_langs = $database->read();
-$title = "プログラミング言語辞典";
-
+    $title = "ProDict";
 ?>
 
-<!DOCTYPE HTML>
-<html lang="ja">
+
+<!DOCTYPE html>
+<html>
+
 <?php (require "./components/meta.php"); ?>
-<body>
-<?php (require "./components/header.html"); ?>
-<div>
-    <section class="hero is-info">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    プログラミング辞典
-                </h1>
-                <h2 class="subtitle">
-                    <p>現在改築中...</p>
-                </h2>
+
+<body id="page-top">
+    <?php (require "./components/nav.html"); ?>
+    <header class="masthead" style="background-color: #262424;">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in"></div>
+                <div class="intro-heading text-uppercase"><span>What's favorite?</span></div><a class="btn btn-dark btn-xl text-uppercase js-scroll-trigger" role="button" href="list.php" style="background-color: rgb(92,92,92);color: rgb(255,255,255);">Let's See!</a></div>
+        </div>
+    </header>
+    <section id="services">
+        <div class="container">
+            <div class="row" style="margin-bottom: 50px;">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" style="margin-bottom: 8px;font-size: 50px;">What's ProDict?</h2>
+                    <h3 class="text-muted" style="font-size: 20px;">このサイトについて</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <p style="margin-top: 20px;margin-bottom: 0px;">僕たちだけのプログラミング辞典を作ろう。</p>
+                    <p style="margin: 0px;">批判も称賛もアナタ次第。</p>
+                    <p style="margin: 0px;">気に入らないなら書き換えろ。</p>
+                </div>
             </div>
         </div>
     </section>
-    <!-- Header /-->
-
-    <!--/ Search -->
-    <main class="columns is-centered" style="margin-top: 20px;">
-        <div class="column is-three-quarters">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>名前</th>
-                    <th>著者</th>
-                    <th>開発者</th>
-                    <th>拡張子</th>
-                    <th>好き度</th>
-                    <th>コメント</th>
-                    <th>削除</th>
-                    <th>修正</th>
-                </tr>
-                </thead>
-                <?php foreach ($pro_langs as $pro_lang): ?>
-                    <tr>
-                        <?php foreach ($pro_lang->getMembers() as $member) : ?>
-                            <td>
-                                <?php echo(es($member)); ?>
-                            </td>
-                        <?php endforeach; ?>
-                        <?php echo("<td><a href='index.php?id=" . $pro_lang->getId() . "'>削除</a></td>"); ?>
-                        <?php echo("<td><a href='update.php?id=" . $pro_lang->getId() . "'>修正</a></td>"); ?>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
-        </div>
-    </main>
-    <!-- Search -->
-
     <?php (require "./components/footer.html"); ?>
-
-</div>
-?>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/agency.js"></script>
 </body>
 </html>
