@@ -25,7 +25,7 @@ $title = "プログラミング言語辞典";
 <html lang="ja">
 <?php (require "./components/meta.php"); ?>
 <body>
-<?php (require "./components/header.html"); ?>
+<?php (require "./components/nav.html"); ?>
 <div>
     <section class="hero is-info">
         <div class="hero-body">
