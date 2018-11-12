@@ -5,7 +5,8 @@ require_once 'util.php';
 class Database
 {
     public $filename;
-    public $deli = "|";
+    public $deli = "|||||";
+    public $deli_reg = "/\|\|\|\|\|/";
 
     function __construct($file)
     {
@@ -24,7 +25,7 @@ class Database
         } else {
             while (!feof($file)) {
                 $text = fgets($file);
-                $pro_lang_array = explode($this->deli, $text);
+                $pro_lang_array = preg_split($this->deli_reg, $text);
                 $max_id = max($max_id, $pro_lang_array[0]);
             }
         }
@@ -45,9 +46,9 @@ class Database
             while (!feof($file)) {
                 $text = fgets($file);
                 $text = trim($text);
-                $par = explode($this->deli, $text);
+                $par = preg_split($this->deli_reg, $text);
                 if ($par[0] != "") {
-                    $pro_lang_item = new ProLang($par[0], $par[1], $par[2], $par[3], $par[4], $par[5], $par[6]);
+                    $pro_lang_item = new ProLang($par[0], $par[1], $par[2], $par[3], $par[4], $par[5], str_replace("[[[[[", "aa", $par[6]));
                     array_push($pro_lang_array, $pro_lang_item);
                 }
             }
@@ -116,15 +117,19 @@ class Database
         $this->addAll($pro_lang_array);
     }
 
-    public function sort($type)
+    public function sort($type, $order)
     {
         $pro_lang_array = $this->read();
 
-        usort($pro_lang_array, function ($proLang1, $proLang2) use ($type) {
+        usort($pro_lang_array, function ($proLang1, $proLang2) use ($type, $order) {
             $type = "get" . $type;
-            return strcmp($proLang1->callComp($type), $proLang2->callComp($type));
+            if ($type === "Name" || $type === "Writer" || $type === "Extension" || $type == "Comment") {
+                return $order * strcmp($proLang1->callComp($type), $proLang2->callComp($type));
+            } else {
+                return (int)($proLang1->callComp($type)) < (int)($proLang2->callComp($type)) ? $order : -$order;
+            }
         });
-
+        
         return $pro_lang_array;
     }
 
@@ -135,7 +140,7 @@ class Database
 
         for ($i = 0, $len = count($pro_lang_array); $i < $len; $i++) {
             for ($j = 0, $lenType = count($types); $j < $lenType; $j++) {
-                $type="get".$types[$j];
+                $type = "get" . $types[$j];
                 $text = $pro_lang_array[$i]->callComp($type);
 
                 if (strpos($text, $keyword) === false) continue;
