@@ -12,6 +12,7 @@ class Database
         $this->filename = $file;
     }
 
+
     public function getID()
     {
         $file = fopen($this->filename, 'a+');

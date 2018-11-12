@@ -16,11 +16,13 @@
         for ($i = 0, $len = count($pro_langs); $i < $len; $i++) {
             if ($pro_langs[$i]->getId() == $_GET['id']) {
                 $pro_lang = $pro_langs[$i];
+                break;
             }
         }
     }
 
     if (isset($_POST['submit'])) {
+        $id = $_POST['id'];
         $name = $_POST['name'];
         $writer = $_POST['writer'];
         $developer = $_POST['developer'];
@@ -28,9 +30,9 @@
         $like = $_POST['like'];
         $comment = $_POST['comment'];
 
-        $database->add(new ProLang(0, $name, $writer, $developer, $extension, $like, $comment));
+        $database->update(new ProLang($id, $name, $writer, $developer, $extension, $like, $comment));
 
-        echo "<script>setTimeout(()=>{swal(`Post Completed!`, `Thank you, " . $writer . ".`, `success`)}, 300);</script>";
+        echo "<script>setTimeout(()=>{swal(`Post Completed!`, `Thank you, " . $writer .$id. ".`, `success`)}, 300);</script>";
     }
     $title = "ProDict-edit";
 
@@ -48,7 +50,8 @@
                 <div class="card bg-dark text-white">
                     <div class="card-body">
                         <h3 class="card-title" style="color: #FFC406;">編集フォーム</h3>
-                        <form method="POST" action="add.php">
+                        <form method="POST" action="edit.php">
+                                <input type="text" value="<?php echo es($pro_lang->getId()); ?>" name="id" hidden >
                             <div class="form-group">
                                 <label class="control-label">言語名</label>
                                 <input class="form-control" type="text" placeholder="ex) c++" name="name" value="<?php echo($pro_lang->getName()); ?>" required>
