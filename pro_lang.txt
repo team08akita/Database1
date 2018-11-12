@@ -1,5 +1,1 @@
-21|ff|ffff|fff|fffffff|1|fff
-21|ff|ffff|fff|fffffff|1|fff
-21|ff|ffff|fff|fffffff|1|fff
-21|ff|ffff|fff|fffffff|1|fff
-21|ff|ffff|fff|fffffff|1|fff
+4|d|d|d|d|1|d

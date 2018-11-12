@@ -13,6 +13,8 @@ $ckbDeveloperChecked = 0;
 $ckbLikeChecked = 0;
 $ckbCommentChecked = 0;
 $ckbExtensionChecked = 0;
+$isSearch = 0;
+$isShowAll = 0;
 
 if ((isset($_GET['id']))) {
     $deleteId = $_GET['id'];
@@ -20,6 +22,7 @@ if ((isset($_GET['id']))) {
 }
 
 if (isset($_GET['btnSearch'])) {
+    $isSearch = 1;
     if (isset($_GET['ckbName'])) {
         $ckbNameChecked = 1;
         array_push($searchArray, "Name");
@@ -45,9 +48,11 @@ if (isset($_GET['btnSearch'])) {
         array_push($searchArray, "Extension");
     }
 
+    //echo getlink($searchArray,1,0);
     $keyword = $_GET['keyword'];
     $pro_langs = $database->search($searchArray, $keyword);
 } else if ((isset($_GET['btnShowAll']))) {
+    $isShowAll = 1;
     $pro_langs = $database->read();
 }
 
@@ -95,17 +100,17 @@ $title = "プログラミング言語辞典";
             </div>
 
             <div class="field" style="margin-top: 10px">
-                <label class="checkbox">
-                    <input type="checkbox" name="ckbName"
-                           value="Name" <?php if ($ckbNameChecked === 1) echo 'checked="checked"' ?>>
-                    名前
-                </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="ckbName"
+                               value="Name" <?php if ($ckbNameChecked === 1) echo 'checked="checked"' ?>>
+                        名前
+                    </label>
 
-                <label class="checkbox">
-                    <input type="checkbox" name="ckbWriter" value="Writer"
-                           style="margin-left: 20px" <?php if ($ckbWriterChecked === 1) echo 'checked="checked"' ?>>
-                    著者
-                </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="ckbWriter" value="Writer"
+                               style="margin-left: 20px" <?php if ($ckbWriterChecked === 1) echo 'checked="checked"' ?>>
+                        著者
+                    </label>
 
                 <label class="checkbox">
                     <input type="checkbox" name="ckbDeveloper" value="Developer"
@@ -145,7 +150,7 @@ $title = "プログラミング言語辞典";
 
     <main class="columns is-centered" style="margin-top: 20px;">
         <div class="column is-three-quarters">
-            <table class="table" <?php if (count($pro_langs) == 0) echo 'style="visibility: hidden;"' ?>>
+            <table class="table is-striped is-centered" <?php if (count($pro_langs) == 0) echo 'style="visibility: hidden;"' ?>>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -166,7 +171,7 @@ $title = "プログラミング言語辞典";
                                 <?php echo(es($member)); ?>
                             </td>
                         <?php endforeach; ?>
-                        <?php echo("<td><a href='search.php?id=" . $pro_lang->getId() ."". "'>削除</a></td>"); ?>
+                        <?php echo("<td><a href='search.php?id=" . $pro_lang->getId() . "&" . getlink($searchArray, $isSearch, $isShowAll) . "'>削除</a></td>"); ?>
                         <?php echo("<td><a href='update.php?id=" . $pro_lang->getId() . "'>修正</a></td>"); ?>
                     </tr>
                 <?php endforeach; ?>
