@@ -1,7 +1,2 @@
-24|sda|2dsfa|fsda|fdsa|3|sfdafsd
-25|sda|2dsfa|fsda|fdsa|3|sfdafsd
-31|c++|ga|32| ppc|3|fdsafsd
-32|c++|ga|32| ppc|3|fdsafsd
-34|34ds|sdfa|23|sdfa|3|sfda
-35|c++|ganariya|300|cpp|5|I love This!
-36|sda|2dsfa|0|fdsa|3|sfdafsd
+1|C+++++|xxx|111|xxxx|3|xxx
+2|ffd|fdfdfdf|343|df|3|fdfd
