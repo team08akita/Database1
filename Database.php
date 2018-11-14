@@ -129,7 +129,7 @@ class Database
                 return (int)($proLang1->callComp($type)) < (int)($proLang2->callComp($type)) ? $order : -$order;
             }
         });
-        
+
         return $pro_lang_array;
     }
 
