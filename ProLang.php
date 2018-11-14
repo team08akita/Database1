@@ -63,8 +63,8 @@ class ProLang
 
     public function toText()
     {
-        $deli = '|';
-        $text = $this->id . $deli . $this->name . $deli . $this->writer . $deli . $this->developer . $deli . $this->extension . $deli . $this->like . $deli . $this->comment;
+        $deli = '|||||';
+        $text = $this->id . $deli . $this->name . $deli . $this->writer . $deli . $this->developer . $deli . $this->extension . $deli . $this->like . $deli . str_replace(PHP_EOL,'[[[[[',$this->comment);
         return $text;
     }
 
